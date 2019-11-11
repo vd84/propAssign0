@@ -3,8 +3,10 @@ package com.company;
 public class BlockNode implements INode {
     Lexeme curlyLeft;
 
+
     public BlockNode(Tokenizer tokenizer) {
        curlyLeft = tokenizer.getCurrent();
+
 
     }
 
