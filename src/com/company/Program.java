@@ -15,10 +15,11 @@ public class Program {
 		
 		try {
 			try {
-				if (args.length < 2)
+				if (args.length < 0)
 					throw new Exception("Incorrect number of parameters to program.");
-				inputFileName = args[0];
-				outputFileName = args[1];
+				inputFileName = "C:\\Users\\dogge\\IdeaProjects\\propAssign0\\src\\com\\company\\program2.txt";
+				//outputFileName = args[1];
+				outputFileName = "C:\\Users\\dogge\\IdeaProjects\\propAssign0\\src\\com\\company\\output.txt";
 				
 				parser = new Parser();
 				parser.open(inputFileName);

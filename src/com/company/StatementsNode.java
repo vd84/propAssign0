@@ -1,8 +1,8 @@
 package com.company;
 
-public class StatementNode implements INode {
+public class StatementsNode implements INode {
     INode assignmentNode;
-    public StatementNode(Tokenizer t) {
+    public StatementsNode(Tokenizer t) {
         assignmentNode = null;
     }
 

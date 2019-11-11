@@ -3,7 +3,7 @@ package com.company;
 import java.io.IOException;
 
 public class Parser implements IParser {
-    Tokenizer tokenizer = null;
+    private Tokenizer tokenizer = null;
 
 
     @Override
@@ -18,13 +18,14 @@ public class Parser implements IParser {
         if (tokenizer == null)
             throw new IOException("No open file.");
 
-        StatementNode statementNode = new StatementNode(tokenizer);
+        BlockNode blockNode = new BlockNode(tokenizer);
 
-        return null;
+        return blockNode;
     }
 
     @Override
     public void close() throws IOException {
+        tokenizer = null;
     }
 
 
