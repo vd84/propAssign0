@@ -17,7 +17,9 @@ public class Parser implements IParser {
     public INode parse() throws IOException, TokenizerException, ParserException {
         if (tokenizer == null)
             throw new IOException("No open file.");
-        tokenizer.moveNext();
+        while (tokenizer.getNextLexeme().token() != Token.EOF) {
+            tokenizer.moveNext();
+        }
 
         return new BlockNode(tokenizer);
     }
@@ -26,7 +28,6 @@ public class Parser implements IParser {
     public void close() throws IOException {
         tokenizer = null;
     }
-
 
 
 }

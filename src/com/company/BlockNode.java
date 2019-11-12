@@ -5,7 +5,7 @@ public class BlockNode implements INode {
 
 
     public BlockNode(Tokenizer tokenizer) {
-       curlyLeft = tokenizer.getCurrent();
+        curlyLeft = tokenizer.getCurrent();
 
 
     }

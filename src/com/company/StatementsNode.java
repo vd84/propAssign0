@@ -2,6 +2,7 @@ package com.company;
 
 public class StatementsNode implements INode {
     INode assignmentNode;
+
     public StatementsNode(Tokenizer t) {
         assignmentNode = null;
     }

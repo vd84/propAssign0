@@ -1,17 +1,16 @@
 package com.company;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
 
 public class Tokenizer implements ITokenizer {
     private Scanner scanner;
     private Lexeme current = null;
     private Lexeme next = null;
 
+
     @Override
     public void open(String fileName) throws IOException, TokenizerException {
+
 
         scanner = new Scanner();
         scanner.open(fileName);
@@ -30,6 +29,8 @@ public class Tokenizer implements ITokenizer {
     private Lexeme extractLexeme() throws IOException, TokenizerException {
         consumeWhiteSpaces();
         char current = scanner.current();
+        scanner.moveNext();
+
 
         switch (current) {
             case '+':
@@ -57,17 +58,28 @@ public class Tokenizer implements ITokenizer {
             case Scanner.NULL:
                 return new Lexeme(current, Token.NULL);
             default:
-                if (current >= 'a' && current <= 'z') {
-                    return new Lexeme(current, Token.IDENT);
-                }
-                if (current >= '0' && current <= '9') {
-                    return new Lexeme(current, Token.INT_LIT);
-                }
+                if (Character.isLetter(current) && current >= 'a' && current <= 'z') {
+                    StringBuilder stringBuilder = new StringBuilder();
 
+                    while (Character.isLetter(current)) {
+                        stringBuilder.append(current);
+                        current = scanner.current();
+                        scanner.moveNext();
+                    }
+                    return new Lexeme(stringBuilder.toString(), Token.IDENT);
+                }
+                if (Character.isDigit(current) && current >= '0' && current <= '9') {
+                    StringBuilder digitBuilder = new StringBuilder();
+
+                    while (Character.isDigit(current)) {
+                        digitBuilder.append(current);
+                        current = scanner.current();
+                        scanner.moveNext();
+                    }
+                    return new Lexeme(digitBuilder.toString(), Token.IDENT);
+                }
                 throw new TokenizerException("Unknown token " + current);
         }
-
-
     }
 
     @Override
@@ -75,9 +87,18 @@ public class Tokenizer implements ITokenizer {
         return current;
     }
 
+    public Lexeme getNextLexeme() {
+        return next;
+    }
+
     @Override
     public void moveNext() throws IOException, TokenizerException {
-
+        if (scanner == null) {
+            throw new IOException("no open file");
+        }
+        if (next.token() != Token.EOF) {
+            next = extractLexeme();
+        }
     }
 
     @Override
