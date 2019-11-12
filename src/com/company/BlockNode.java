@@ -1,13 +1,22 @@
 package com.company;
 
+import java.io.IOException;
+
 public class BlockNode implements INode {
-    Lexeme curlyLeft;
+    INode statementsNode;
 
+    public BlockNode(Tokenizer tokenizer) throws Exception {
+        System.out.println("fjdkslfds" + tokenizer.getCurrent().token().toString());
 
-    public BlockNode(Tokenizer tokenizer) {
-        curlyLeft = tokenizer.getCurrent();
-
-
+        if(tokenizer.getCurrent().token() == Token.LEFT_CURLY){
+            tokenizer.moveNext();
+            statementsNode = new StatementsNode(tokenizer);
+        } else {
+            throw new IOException("Wrong token " + tokenizer.getCurrent().token());
+        }
+        if(tokenizer.getCurrent().token() == Token.RIGHT_CURLY){
+            tokenizer.moveNext();
+        }
     }
 
     @Override
@@ -17,6 +26,16 @@ public class BlockNode implements INode {
 
     @Override
     public void buildString(StringBuilder builder, int tabs) {
+    }
 
+
+
+
+    public INode getStatementsNode() {
+        return statementsNode;
+    }
+
+    public void setStatementsNode(INode statementsNode) {
+        this.statementsNode = statementsNode;
     }
 }

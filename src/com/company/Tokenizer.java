@@ -12,12 +12,11 @@ public class Tokenizer implements ITokenizer {
     public void open(String fileName) throws IOException, TokenizerException {
 
 
+
         scanner = new Scanner();
         scanner.open(fileName);
         scanner.moveNext();
         next = extractLexeme();
-
-
     }
 
     private void consumeWhiteSpaces() throws IOException {
@@ -96,6 +95,7 @@ public class Tokenizer implements ITokenizer {
         if (scanner == null) {
             throw new IOException("no open file");
         }
+        current = next;
         if (next.token() != Token.EOF) {
             next = extractLexeme();
         }
