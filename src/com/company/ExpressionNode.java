@@ -1,13 +1,24 @@
 package com.company;
 
+import java.io.IOException;
+
 public class ExpressionNode implements INode {
 
     INode termNode;
     Lexeme operator;
     INode expressionNode;
 
-    public ExpressionNode(Tokenizer tokenizer) {
-        System.out.println("ExpressionNode " + tokenizer);
+    public ExpressionNode(Tokenizer tokenizer) throws IOException, TokenizerException {
+            System.out.println("ExpressionNode " + tokenizer.getCurrent().value().toString());
+                termNode = new TermNode(tokenizer);
+
+
+        if (tokenizer.getCurrent().token() == Token.SUB_OP || tokenizer.getCurrent().token() == Token.ADD_OP){
+            System.out.println("ExpressionNode " + tokenizer.getCurrent().value().toString());
+
+            tokenizer.moveNext();
+            expressionNode = new ExpressionNode(tokenizer);
+        }
     }
 
     @Override

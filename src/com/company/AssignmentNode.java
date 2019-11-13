@@ -1,19 +1,25 @@
 package com.company;
-
-import java.io.IOException;
-
 public class AssignmentNode implements INode {
     INode expressionNode;
     Lexeme id;
 
-    public AssignmentNode(Tokenizer tokenizer) throws IOException, TokenizerException {
+    public AssignmentNode(Tokenizer tokenizer) throws Exception {
 
         if (tokenizer.getCurrent().token() == Token.IDENT) {
-            id = tokenizer.getCurrent();
+
+            System.out.println("AssignmentNodeIdent " + tokenizer.getCurrent().value().toString());
             tokenizer.moveNext();
 
             if(tokenizer.getCurrent().token() == Token.ASSIGN_OP){
+                System.out.println("AssignmentNodeAssignment " + tokenizer.getCurrent().value().toString());
                 tokenizer.moveNext();
+                expressionNode = new ExpressionNode(tokenizer);
+
+
+                if(tokenizer.getCurrent().token() == Token.SEMICOLON){
+                    System.out.println("AssignmentNodeSemicolon " + tokenizer.getCurrent().value().toString());
+                    tokenizer.moveNext();
+                }
 
             }
         }

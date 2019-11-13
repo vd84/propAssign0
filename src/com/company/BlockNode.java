@@ -3,18 +3,20 @@ package com.company;
 import java.io.IOException;
 
 public class BlockNode implements INode {
+    //Lexeme leftCurly, rightCurly;
     INode statementsNode;
 
     public BlockNode(Tokenizer tokenizer) throws Exception {
-        System.out.println("fjdkslfds" + tokenizer.getCurrent().token().toString());
+        System.out.println("block" + tokenizer.getCurrent().value().toString());
 
         if(tokenizer.getCurrent().token() == Token.LEFT_CURLY){
             tokenizer.moveNext();
             statementsNode = new StatementsNode(tokenizer);
         } else {
-            throw new IOException("Wrong token " + tokenizer.getCurrent().token());
+            throw new IOException("Wrong token " + tokenizer.getCurrent().token().toString());
         }
         if(tokenizer.getCurrent().token() == Token.RIGHT_CURLY){
+            System.out.println("EndBLock" + tokenizer.getCurrent().value().toString());
             tokenizer.moveNext();
         }
     }

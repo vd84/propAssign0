@@ -7,15 +7,15 @@ public class StatementsNode implements INode {
     INode assignmentNode;
     INode statementNode;
 
-    public StatementsNode(Tokenizer t) throws IOException, TokenizerException {
+    public StatementsNode(Tokenizer t) throws Exception {
 
-        if(t.getCurrent().token() == Token.IDENT){
-            System.out.println("statementsNode" + t.getCurrent().token().toString());
-            t.moveNext();
+        if(t.getCurrent().token() == Token.IDENT) {
+            System.out.println("statementsNode " + t.getCurrent().value().toString());
             assignmentNode = new AssignmentNode(t);
-            //hur ska detta hanteras? Rekursivt anrop
             statementNode = new StatementsNode(t);
+
         }
+
 
 
     }

@@ -10,9 +10,6 @@ public class Tokenizer implements ITokenizer {
 
     @Override
     public void open(String fileName) throws IOException, TokenizerException {
-
-
-
         scanner = new Scanner();
         scanner.open(fileName);
         scanner.moveNext();
@@ -75,7 +72,7 @@ public class Tokenizer implements ITokenizer {
                         current = scanner.current();
                         scanner.moveNext();
                     }
-                    return new Lexeme(digitBuilder.toString(), Token.IDENT);
+                    return new Lexeme(digitBuilder.toString(), Token.INT_LIT);
                 }
                 throw new TokenizerException("Unknown token " + current);
         }
