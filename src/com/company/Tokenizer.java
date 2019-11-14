@@ -72,7 +72,7 @@ public class Tokenizer implements ITokenizer {
                         current = scanner.current();
                         scanner.moveNext();
                     }
-                    return new Lexeme(digitBuilder.toString(), Token.INT_LIT);
+                    return new Lexeme(Double.parseDouble(digitBuilder.toString()), Token.INT_LIT);
                 }
                 throw new TokenizerException("Unknown token " + current);
         }

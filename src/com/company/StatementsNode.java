@@ -27,5 +27,19 @@ public class StatementsNode implements INode {
 
     @Override
     public void buildString(StringBuilder builder, int tabs) {
+        System.out.println(tabs);
+        for (int i = 0; i<tabs; i++){
+            builder.append("\t");
+        }
+        tabs++;
+
+        builder.append("StatementsNode \n  ");
+
+        if(assignmentNode != null)
+            assignmentNode.buildString(builder, tabs);
+        if(statementNode != null)
+            statementNode.buildString(builder, tabs);
+
+
     }
 }
