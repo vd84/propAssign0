@@ -14,6 +14,7 @@ public class Tokenizer implements ITokenizer {
         scanner.open(fileName);
         scanner.moveNext();
         next = extractLexeme();
+
     }
 
     private void consumeWhiteSpaces() throws IOException {
@@ -26,6 +27,7 @@ public class Tokenizer implements ITokenizer {
         consumeWhiteSpaces();
         char current = scanner.current();
         scanner.moveNext();
+        //this.moveNext();
 
 
         switch (current) {
@@ -57,22 +59,21 @@ public class Tokenizer implements ITokenizer {
                 if (Character.isLetter(current) && current >= 'a' && current <= 'z') {
                     StringBuilder stringBuilder = new StringBuilder();
 
-                    while (Character.isLetter(current)) {
-                        stringBuilder.append(current);
-                        current = scanner.current();
+                    while (Character.isLetter(scanner.current())) {
+                        stringBuilder.append(scanner.current());
                         scanner.moveNext();
                     }
                     return new Lexeme(stringBuilder.toString(), Token.IDENT);
                 }
-                if (Character.isDigit(current) && current >= '0' && current <= '9') {
+                if (Character.isDigit(current)) {
                     StringBuilder digitBuilder = new StringBuilder();
 
-                    while (Character.isDigit(current)) {
-                        digitBuilder.append(current);
-                        current = scanner.current();
+                    while (Character.isDigit(scanner.current())) {
+
+                        digitBuilder.append(Double.parseDouble(String.valueOf(scanner.current())));
                         scanner.moveNext();
                     }
-                    return new Lexeme(Double.parseDouble(digitBuilder.toString()), Token.INT_LIT);
+                    return new Lexeme(digitBuilder.toString(), Token.INT_LIT);
                 }
                 throw new TokenizerException("Unknown token " + current);
         }

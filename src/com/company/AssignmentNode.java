@@ -1,4 +1,7 @@
 package com.company;
+
+import java.io.IOException;
+
 public class AssignmentNode implements INode {
     INode expressionNode = null;
     Lexeme id = null;
@@ -10,7 +13,6 @@ public class AssignmentNode implements INode {
         if (tokenizer.getCurrent().token() == Token.IDENT) {
             id = tokenizer.getCurrent();
 
-            System.out.println("AssignmentNodeIdent " + tokenizer.getCurrent().value().toString());
             tokenizer.moveNext();
 
             if(tokenizer.getCurrent().token() == Token.ASSIGN_OP){
@@ -25,9 +27,11 @@ public class AssignmentNode implements INode {
 
                     System.out.println("AssignmentNodeSemicolon " + tokenizer.getCurrent().value().toString());
                     tokenizer.moveNext();
-                }
+                } else
+                    throw new IOException("Wrong token, expected: SEMICOLON, got: " + tokenizer.getCurrent().token().toString());
 
-            }
+            } else
+                throw new IOException("Wrong token, expected: ASSIGN_OP, got: " + tokenizer.getCurrent().token().toString());
         }
 
 

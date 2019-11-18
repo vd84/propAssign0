@@ -14,9 +14,10 @@ public class StatementsNode implements INode {
             assignmentNode = new AssignmentNode(t);
             statementNode = new StatementsNode(t);
 
+        } else if (t.current().token() != Token.IDENT && t.current().token() != Token.RIGHT_CURLY) {
+            throw new IOException("Wrong token, expected Identifier " + t.getCurrent().token());
+
         }
-
-
 
     }
 

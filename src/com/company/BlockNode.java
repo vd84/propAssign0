@@ -1,5 +1,6 @@
 package com.company;
 
+import java.beans.Statement;
 import java.io.IOException;
 
 public class BlockNode implements INode {
@@ -14,7 +15,7 @@ public class BlockNode implements INode {
             tokenizer.moveNext();
             statementsNode = new StatementsNode(tokenizer);
         } else {
-            throw new IOException("Wrong token " + tokenizer.getCurrent().token().toString());
+            throw new IOException("Wrong token, expected: LEFT_CURLY, got: " + tokenizer.getCurrent().token().toString());
         }
         if(tokenizer.getCurrent().token() == Token.RIGHT_CURLY){
             rightCurly = tokenizer.current();
@@ -26,6 +27,7 @@ public class BlockNode implements INode {
 
     @Override
     public Object evaluate(Object[] args) throws Exception {
+
         return null;
     }
 
@@ -46,9 +48,6 @@ public class BlockNode implements INode {
 
 
     }
-
-
-
 
     public INode getStatementsNode() {
         return statementsNode;

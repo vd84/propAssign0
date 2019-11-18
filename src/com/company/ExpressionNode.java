@@ -19,8 +19,12 @@ public class ExpressionNode implements INode {
 
             tokenizer.moveNext();
             expressionNode = new ExpressionNode(tokenizer);
+        } else if (tokenizer.current().token() != Token.INT_LIT && tokenizer.current().token() != Token.IDENT && tokenizer.current().token() != Token.RIGHT_PAREN && tokenizer.current().token() != Token.SEMICOLON) {
+            throw new IOException("Wrong token, expected: SUB_OP OR ADD_OP, got: " + tokenizer.getCurrent().token().toString());
         }
     }
+
+
 
     @Override
     public Object evaluate(Object[] args) throws Exception {

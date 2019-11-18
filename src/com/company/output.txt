@@ -3,16 +3,16 @@ Blocknode
 LEFT_CURLY {
 	StatementsNode 
   		AssignmentNode 
-			IDENT a
+			IDENT 
 			ASSIGN_OP =
 			ExpressionNode
 				TermNode
 					FactorNode
-						INT_LIT 1.0
+						INT_LIT 
 					MULT_OP *
 					TermNode
 						FactorNode
-							INT_LIT 2.0
+							INT_LIT 
 				ADD_OP +
 				ExpressionNode
 					TermNode
@@ -20,63 +20,63 @@ LEFT_CURLY {
 							ExpressionNode
 								TermNode
 									FactorNode
-										INT_LIT 3.0
+										INT_LIT 
 								SUB_OP -
 								ExpressionNode
 									TermNode
 										FactorNode
-											INT_LIT 4.0
-										DIV_OP /
-										TermNode
-											FactorNode
-												INT_LIT 5.0
-							LEFT_PAREN (
+											INT_LIT 
+							RIGHT_PAREN )
+						DIV_OP /
+						TermNode
+							FactorNode
+								INT_LIT 
 			SEMICOLON ;
 		StatementsNode 
   			AssignmentNode 
-				IDENT b
+				IDENT 
 				ASSIGN_OP =
 				ExpressionNode
 					TermNode
 						FactorNode
-							INT_LIT 4.0
+							INT_LIT 
 					SUB_OP -
 					ExpressionNode
 						TermNode
 							FactorNode
-								INT_LIT 3.0
+								INT_LIT 
 						SUB_OP -
 						ExpressionNode
 							TermNode
 								FactorNode
-									IDENT a
+									IDENT 
 							ADD_OP +
 							ExpressionNode
 								TermNode
 									FactorNode
-										INT_LIT 6.0
+										INT_LIT 
 									DIV_OP /
 									TermNode
 										FactorNode
-											INT_LIT 5.0
+											INT_LIT 
 										DIV_OP /
 										TermNode
 											FactorNode
-												INT_LIT 2.0
+												INT_LIT 
 				SEMICOLON ;
 			StatementsNode 
   				AssignmentNode 
-					IDENT c
+					IDENT 
 					ASSIGN_OP =
 					ExpressionNode
 						TermNode
 							FactorNode
-								IDENT b
+								IDENT 
 						ADD_OP +
 						ExpressionNode
 							TermNode
 								FactorNode
-									IDENT a
+									IDENT 
 					SEMICOLON ;
 				StatementsNode 
   RIGHT_CURLY }

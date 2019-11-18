@@ -23,8 +23,12 @@ public class FactorNode implements INode {
                 var = tokenizer.getCurrent();
                 System.out.println("FactorNode " + tokenizer.getCurrent().value().toString());
                 tokenizer.moveNext();
-            }
-        }
+            } else
+                throw new IOException("Wrong token, expected: RIGHT_PAREN, got: " + tokenizer.getCurrent().token().toString());
+
+        } else
+            throw new IOException("Wrong token, expected: LEFT_PAREM, got: " + tokenizer.getCurrent().token().toString());
+
     }
 
     @Override
