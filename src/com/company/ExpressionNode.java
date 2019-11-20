@@ -8,7 +8,7 @@ public class ExpressionNode implements INode {
     Lexeme operator = null;
     INode expressionNode = null;
 
-    public ExpressionNode(Tokenizer tokenizer) throws IOException, TokenizerException {
+    public ExpressionNode(Tokenizer tokenizer) throws IOException, TokenizerException, ParserException {
         System.out.println("ExpressionNode " + tokenizer.getCurrent().value().toString());
         termNode = new TermNode(tokenizer);
 
@@ -20,7 +20,7 @@ public class ExpressionNode implements INode {
             tokenizer.moveNext();
             expressionNode = new ExpressionNode(tokenizer);
         } else if (tokenizer.current().token() != Token.INT_LIT && tokenizer.current().token() != Token.IDENT && tokenizer.current().token() != Token.RIGHT_PAREN && tokenizer.current().token() != Token.SEMICOLON) {
-            throw new IOException("Wrong token, expected: SUB_OP OR ADD_OP, got: " + tokenizer.getCurrent().token().toString());
+            throw new ParserException("Wrong token, expected: SUB_OP OR ADD_OP, got: " + tokenizer.getCurrent().token().toString());
         }
     }
 
@@ -52,8 +52,5 @@ public class ExpressionNode implements INode {
         if(expressionNode != null){
             expressionNode.buildString(builder, tabs);
         }
-
-
-
     }
 }

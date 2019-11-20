@@ -6,16 +6,16 @@ public class FactorNode implements INode {
 
     Lexeme var;
     INode expressionNode;
+    Lexeme leftParen;
 
-    public FactorNode(Tokenizer tokenizer) throws IOException, TokenizerException {
+    public FactorNode(Tokenizer tokenizer) throws IOException, TokenizerException, ParserException {
 
         if (tokenizer.getCurrent().token() == Token.INT_LIT || tokenizer.getCurrent().token() ==  Token.IDENT){
             var = tokenizer.getCurrent();
-
             System.out.println("FactorNode " + tokenizer.getCurrent().value().toString());
             tokenizer.moveNext();
         } else if (tokenizer.getCurrent().token() == Token.LEFT_PAREN){
-            var = tokenizer.getCurrent();
+            leftParen = tokenizer.getCurrent();
             System.out.println("FactorNode " + tokenizer.getCurrent().value().toString());
             tokenizer.moveNext();
             expressionNode = new ExpressionNode(tokenizer);
@@ -24,15 +24,18 @@ public class FactorNode implements INode {
                 System.out.println("FactorNode " + tokenizer.getCurrent().value().toString());
                 tokenizer.moveNext();
             } else
-                throw new IOException("Wrong token, expected: RIGHT_PAREN, got: " + tokenizer.getCurrent().token().toString());
+                throw new ParserException("Wrong token, expected: RIGHT_PAREN, got: " + tokenizer.getCurrent().token().toString());
 
         } else
-            throw new IOException("Wrong token, expected: LEFT_PAREM, got: " + tokenizer.getCurrent().token().toString());
+            throw new ParserException("Wrong token, expected: LEFT_PAREM, got: " + tokenizer.getCurrent().token().toString());
 
     }
 
     @Override
     public Object evaluate(Object[] args) throws Exception {
+
+
+
         return null;
     }
 
@@ -43,7 +46,13 @@ public class FactorNode implements INode {
 
         builder.append("FactorNode\n");
 
+        if(leftParen != null){
+            builder.append("\t".repeat(Math.max(0, tabs)));
+            builder.append(leftParen);
+            builder.append("\n");
 
+
+        }
 
         if(expressionNode != null){
             expressionNode.buildString(builder, tabs);

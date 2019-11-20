@@ -7,7 +7,7 @@ public class TermNode implements INode {
     Lexeme operator = null;
     INode termNode = null;
 
-    public TermNode(Tokenizer tokenizer) throws IOException, TokenizerException {
+    public TermNode(Tokenizer tokenizer) throws IOException, TokenizerException, ParserException {
         factorNode = new FactorNode(tokenizer);
 
         if (tokenizer.getCurrent().token() == Token.MULT_OP || tokenizer.getCurrent().token() == Token.DIV_OP) {
@@ -18,7 +18,7 @@ public class TermNode implements INode {
 
 
         } else if (tokenizer.current().token() != Token.SUB_OP && tokenizer.current().token() != Token.ADD_OP && tokenizer.current().token() != Token.INT_LIT && tokenizer.current().token() != Token.IDENT && tokenizer.current().token() != Token.RIGHT_PAREN && tokenizer.current().token() != Token.SEMICOLON) {
-            throw new IOException("Wrong token, expected: MULT_OP or DIV_OP, got: " + tokenizer.getCurrent().token().toString());
+            throw new ParserException("Wrong token, expected: MULT_OP or DIV_OP, got: " + tokenizer.getCurrent().token().toString());
 
 
         }
@@ -32,9 +32,9 @@ public class TermNode implements INode {
     @Override
     public void buildString(StringBuilder builder, int tabs) {
         builder.append("\t".repeat(Math.max(0, tabs)));
+        builder.append("TermNode\n");
         tabs++;
 
-        builder.append("TermNode\n");
 
 
         if (factorNode != null) {

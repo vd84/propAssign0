@@ -21,7 +21,6 @@ public class AssignmentNode implements INode {
                 tokenizer.moveNext();
                 expressionNode = new ExpressionNode(tokenizer);
 
-
                 if(tokenizer.getCurrent().token() == Token.SEMICOLON){
                     semicolon = tokenizer.getCurrent();
 
@@ -40,7 +39,11 @@ public class AssignmentNode implements INode {
 
     @Override
     public Object evaluate(Object[] args) throws Exception {
-        return null;
+
+        return new ResultNode(id.value().toString(),5.5);
+
+
+
     }
 
     @Override

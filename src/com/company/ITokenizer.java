@@ -1,13 +1,12 @@
 package com.company;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public interface ITokenizer {
 	/**
 	 * Opens a file for tokenizing.
 	 */
-	void open(String fileName) throws IOException, TokenizerException;
+	void open(java.lang.String fileName) throws IOException, TokenizerException;
 	
 	/**
 	 * Returns the current token in the stream.

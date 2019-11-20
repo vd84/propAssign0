@@ -9,7 +9,7 @@ public class Tokenizer implements ITokenizer {
 
 
     @Override
-    public void open(String fileName) throws IOException, TokenizerException {
+    public void open(java.lang.String fileName) throws IOException, TokenizerException {
         scanner = new Scanner();
         scanner.open(fileName);
         scanner.moveNext();
@@ -25,38 +25,75 @@ public class Tokenizer implements ITokenizer {
 
     private Lexeme extractLexeme() throws IOException, TokenizerException {
         consumeWhiteSpaces();
-        char current = scanner.current();
-        scanner.moveNext();
+        //char current = scanner.current();
+        //scanner.moveNext();
         //this.moveNext();
 
+        Lexeme lexeme;
 
-        switch (current) {
+
+        switch (scanner.current()) {
             case '+':
-                return new Lexeme(current, Token.ADD_OP);
+                lexeme = new Lexeme(scanner.current(), Token.ADD_OP);
+                scanner.moveNext();
+                return lexeme;
+
             case '-':
-                return new Lexeme(current, Token.SUB_OP);
+                lexeme =  new Lexeme(scanner.current(), Token.SUB_OP);
+                scanner.moveNext();
+                return lexeme;
+
             case '*':
-                return new Lexeme(current, Token.MULT_OP);
+                lexeme =  new Lexeme(scanner.current(), Token.MULT_OP);
+                scanner.moveNext();
+                return lexeme;
+
             case '/':
-                return new Lexeme(current, Token.DIV_OP);
+                lexeme =  new Lexeme(scanner.current(), Token.DIV_OP);
+                scanner.moveNext();
+                return lexeme;
             case '{':
-                return new Lexeme(current, Token.LEFT_CURLY);
+                lexeme =  new Lexeme(scanner.current(), Token.LEFT_CURLY);
+                scanner.moveNext();
+                return lexeme;
+
             case '}':
-                return new Lexeme(current, Token.RIGHT_CURLY);
+                lexeme =  new Lexeme(scanner.current(), Token.RIGHT_CURLY);
+                scanner.moveNext();
+                return lexeme;
+
             case '(':
-                return new Lexeme(current, Token.LEFT_PAREN);
+                lexeme =  new Lexeme(scanner.current(), Token.LEFT_PAREN);
+                scanner.moveNext();
+                return lexeme;
+
             case ')':
-                return new Lexeme(current, Token.RIGHT_PAREN);
+                lexeme =  new Lexeme(scanner.current(), Token.RIGHT_PAREN);
+                scanner.moveNext();
+                return lexeme;
+
             case '=':
-                return new Lexeme(current, Token.ASSIGN_OP);
+                lexeme =  new Lexeme(scanner.current(), Token.ASSIGN_OP);
+                scanner.moveNext();
+                return lexeme;
+
             case ';':
-                return new Lexeme(current, Token.SEMICOLON);
+                lexeme =  new Lexeme(scanner.current(), Token.SEMICOLON);
+                scanner.moveNext();
+                return lexeme;
+
             case Scanner.EOF:
-                return new Lexeme(current, Token.EOF);
+                lexeme =  new Lexeme(scanner.current(), Token.EOF);
+                scanner.moveNext();
+                return lexeme;
+
             case Scanner.NULL:
-                return new Lexeme(current, Token.NULL);
+                lexeme =  new Lexeme(scanner.current(), Token.NULL);
+                scanner.moveNext();
+                return lexeme;
+
             default:
-                if (Character.isLetter(current) && current >= 'a' && current <= 'z') {
+                if (Character.isLetter(scanner.current()) && scanner.current() >= 'a' && scanner.current() <= 'z') {
                     StringBuilder stringBuilder = new StringBuilder();
 
                     while (Character.isLetter(scanner.current())) {
@@ -65,19 +102,22 @@ public class Tokenizer implements ITokenizer {
                     }
                     return new Lexeme(stringBuilder.toString(), Token.IDENT);
                 }
-                if (Character.isDigit(current)) {
+                else if (Character.isDigit(scanner.current())) {
                     StringBuilder digitBuilder = new StringBuilder();
 
                     while (Character.isDigit(scanner.current())) {
-
-                        digitBuilder.append(Double.parseDouble(String.valueOf(scanner.current())));
+                        digitBuilder.append(Double.parseDouble(java.lang.String.valueOf(scanner.current())));
                         scanner.moveNext();
                     }
                     return new Lexeme(digitBuilder.toString(), Token.INT_LIT);
+                } else {
+                    throw new TokenizerException("Unknown token " + scanner.current());
                 }
-                throw new TokenizerException("Unknown token " + current);
         }
+
     }
+
+
 
     @Override
     public Lexeme current() {

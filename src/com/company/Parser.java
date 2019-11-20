@@ -31,15 +31,11 @@ public class Parser implements IParser {
     private INode createBlockNode() throws Exception {
 
         BlockNode blockNode = new BlockNode(tokenizer);
-        blockNode.setStatementsNode(createStatementsNode());
         return blockNode;
 
     }
 
-    private INode createStatementsNode() {
 
-        return null;
-    }
 
     @Override
     public void close() throws IOException {

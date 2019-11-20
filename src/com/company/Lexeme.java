@@ -19,7 +19,7 @@ public class Lexeme {
 	}
 	
 	@Override
-	public String toString() {
+	public java.lang.String toString() {
 		return token + " " + value.toString();
 	}
 }
