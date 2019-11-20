@@ -28,7 +28,21 @@ public class ExpressionNode implements INode {
 
     @Override
     public Object evaluate(Object[] args) throws Exception {
-        return null;
+
+        double termValue = Double.parseDouble(termNode.evaluate(args).toString());
+
+        if (expressionNode == null) {
+            return termValue;
+        } else {
+            double exprValue = Double.parseDouble(expressionNode.evaluate(args).toString());
+            if (operator.token() == Token.ADD_OP) {
+                return termValue + exprValue;
+            } else {
+                return termValue - exprValue;
+
+
+            }
+        }
     }
 
     @Override

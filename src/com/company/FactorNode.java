@@ -10,16 +10,16 @@ public class FactorNode implements INode {
 
     public FactorNode(Tokenizer tokenizer) throws IOException, TokenizerException, ParserException {
 
-        if (tokenizer.getCurrent().token() == Token.INT_LIT || tokenizer.getCurrent().token() ==  Token.IDENT){
+        if (tokenizer.getCurrent().token() == Token.INT_LIT || tokenizer.getCurrent().token() == Token.IDENT) {
             var = tokenizer.getCurrent();
             System.out.println("FactorNode " + tokenizer.getCurrent().value().toString());
             tokenizer.moveNext();
-        } else if (tokenizer.getCurrent().token() == Token.LEFT_PAREN){
+        } else if (tokenizer.getCurrent().token() == Token.LEFT_PAREN) {
             leftParen = tokenizer.getCurrent();
             System.out.println("FactorNode " + tokenizer.getCurrent().value().toString());
             tokenizer.moveNext();
             expressionNode = new ExpressionNode(tokenizer);
-            if(tokenizer.getCurrent().token() == Token.RIGHT_PAREN){
+            if (tokenizer.getCurrent().token() == Token.RIGHT_PAREN) {
                 var = tokenizer.getCurrent();
                 System.out.println("FactorNode " + tokenizer.getCurrent().value().toString());
                 tokenizer.moveNext();
@@ -34,9 +34,21 @@ public class FactorNode implements INode {
     @Override
     public Object evaluate(Object[] args) throws Exception {
 
+        if (expressionNode == null) {
+            if (var.token() == Token.INT_LIT) {
+                return var.value();
+            } else if (var.token() == Token.IDENT) {
+                for (int i = 0; i < args.length; i++) {
+                    ResultNode resultNode = (ResultNode) args[i];
+                    if (resultNode.getId().equals(var.value().toString())) {
+                        return var.value();
+                    }
+                }
+            }
+        }
 
 
-        return null;
+        return expressionNode.evaluate(args);
     }
 
     @Override
@@ -46,7 +58,7 @@ public class FactorNode implements INode {
 
         builder.append("FactorNode\n");
 
-        if(leftParen != null){
+        if (leftParen != null) {
             builder.append("\t".repeat(Math.max(0, tabs)));
             builder.append(leftParen);
             builder.append("\n");
@@ -54,18 +66,17 @@ public class FactorNode implements INode {
 
         }
 
-        if(expressionNode != null){
+        if (expressionNode != null) {
             expressionNode.buildString(builder, tabs);
         }
 
-        if(var != null){
+        if (var != null) {
             builder.append("\t".repeat(Math.max(0, tabs)));
             builder.append(var);
             builder.append("\n");
 
 
         }
-
 
 
     }

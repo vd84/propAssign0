@@ -26,7 +26,22 @@ public class TermNode implements INode {
 
     @Override
     public Object evaluate(Object[] args) throws Exception {
-        return null;
+
+        double factorValue = Double.parseDouble(factorNode.evaluate(args).toString());
+
+        if (termNode == null) {
+            return factorValue;
+        } else {
+            double termvalue = Double.parseDouble(termNode.evaluate(args).toString());
+            if (operator.token() == Token.MULT_OP) {
+                return factorValue * termvalue;
+            } else {
+                return factorValue / termvalue;
+
+
+            }
+        }
+
     }
 
     @Override
@@ -34,7 +49,6 @@ public class TermNode implements INode {
         builder.append("\t".repeat(Math.max(0, tabs)));
         builder.append("TermNode\n");
         tabs++;
-
 
 
         if (factorNode != null) {

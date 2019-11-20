@@ -30,12 +30,12 @@ public class StatementsNode implements INode {
 
 
             for (int i = 0; i < args.length; i++) {
-
                 if (args[i] == null) {
                     args[i] = currentResult;
                     break;
                 }
             }
+            stringBuilder.append(statementNode.evaluate(args));
         }
         return stringBuilder;
     }

@@ -40,7 +40,7 @@ public class AssignmentNode implements INode {
     @Override
     public Object evaluate(Object[] args) throws Exception {
 
-        return new ResultNode(id.value().toString(),5.5);
+        return new ResultNode(id.value().toString(), Double.parseDouble(expressionNode.evaluate(args).toString()));
 
 
 
