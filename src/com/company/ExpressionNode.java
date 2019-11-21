@@ -1,6 +1,8 @@
 package com.company;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.IllegalFormatPrecisionException;
 
 public class ExpressionNode implements INode {
 
@@ -15,7 +17,6 @@ public class ExpressionNode implements INode {
         termNode = new TermNode(tokenizer);
 
 
-
         if (tokenizer.getCurrent().token() == Token.SUB_OP || tokenizer.getCurrent().token() == Token.ADD_OP) {
             operator = tokenizer.getCurrent();
             System.out.println("ExpressionNode " + tokenizer.getCurrent().value().toString());
@@ -28,25 +29,23 @@ public class ExpressionNode implements INode {
     }
 
 
-
     @Override
     public Object evaluate(Object[] args) throws Exception {
-
-        Double termValue = Double.parseDouble(termNode.evaluate(args).toString());
+        double termNodeValue = Double.parseDouble(termNode.evaluate(args).toString());
 
         if (expressionNode == null) {
-            return termValue;
+            return termNodeValue;
         } else {
-            Double exprValue = Double.parseDouble(expressionNode.evaluate(args).toString());
-            return termValue + exprValue;
-
-
-
-
-
-
+            double exprNodeValue = Double.parseDouble(expressionNode.evaluate(args).toString());
+            if (operator.token() == Token.ADD_OP) {
+                if (prevOperator != null && prevOperator.token() == Token.SUB_OP) {
+                    return exprNodeValue - termNodeValue;
+                }
+                return termNodeValue + exprNodeValue;
+            } else {
+                return termNodeValue - exprNodeValue;
             }
-
+        }
     }
 
     @Override
@@ -57,17 +56,16 @@ public class ExpressionNode implements INode {
         builder.append("ExpressionNode\n");
 
 
-
-        if(termNode != null){
+        if (termNode != null) {
             termNode.buildString(builder, tabs);
         }
 
-        if(operator != null){
+        if (operator != null) {
             builder.append("\t".repeat(Math.max(0, tabs)));
             builder.append(operator);
             builder.append("\n");
         }
-        if(expressionNode != null){
+        if (expressionNode != null) {
             expressionNode.buildString(builder, tabs);
         }
     }
