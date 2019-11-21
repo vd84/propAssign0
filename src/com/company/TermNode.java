@@ -30,11 +30,39 @@ public class TermNode implements INode {
     @Override
     public Object evaluate(Object[] args) throws Exception {
 
+
+
+
+
         double factorNodeValue = Double.parseDouble(factorNode.evaluate(args).toString());
 
         if (termNode == null) {
             return factorNodeValue;
-        } else {
+        }else {
+            double termNodeValue = Double.parseDouble(termNode.evaluate(args).toString());
+            if (operator.token() == Token.MULT_OP){
+
+                return factorNodeValue * termNodeValue;
+            }else {
+                while (operator.token() == Token.DIV_OP){
+                    if(termNode != null)
+                        return factorNodeValue / (Double.parseDouble(termNode.evaluate(args).toString()) + termNodeValue);
+                }
+                return factorNodeValue / termNodeValue;
+            }
+        }
+
+    }
+
+
+/*        double factorNodeValue = Double.parseDouble(factorNode.evaluate(args).toString());
+
+        if (termNode == null) {
+            return factorNodeValue;
+
+        }*/
+
+      /*  } else {
             if (operator.token() == Token.DIV_OP && prevDouble == 0.0) {
                 if (termNode.operator != null && termNode.operator.token() == Token.DIV_OP) {
                     termNode.setPrevDouble(factorNodeValue);
@@ -54,10 +82,12 @@ public class TermNode implements INode {
                 return factorNodeValue * termNodeValue;
             }
 
-        }
-        return factorNodeValue;
+        }*/
+
+   /*     return factorNodeValue;
 
     }
+*/
 
     public double divide(double x1, double x2) {
 
