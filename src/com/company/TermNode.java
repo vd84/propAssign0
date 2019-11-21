@@ -5,7 +5,7 @@ import java.io.IOException;
 public class TermNode implements INode {
     INode factorNode = null;
     Lexeme operator = null;
-    INode termNode = null;
+    private TermNode termNode = null;
 
     public TermNode(Tokenizer tokenizer) throws IOException, TokenizerException, ParserException {
         factorNode = new FactorNode(tokenizer);
@@ -27,19 +27,22 @@ public class TermNode implements INode {
     @Override
     public Object evaluate(Object[] args) throws Exception {
 
-        double factorValue = Double.parseDouble(factorNode.evaluate(args).toString());
-
+        Double factorValue = Double.parseDouble(factorNode.evaluate(args).toString());
         if (termNode == null) {
             return factorValue;
         } else {
-            double termvalue = Double.parseDouble(termNode.evaluate(args).toString());
-            if (operator.token() == Token.MULT_OP) {
-                return factorValue * termvalue;
+            Double termvalue;
+            if (operator.token() != null && operator.token() == Token.DIV_OP) {
+                Double secondTermFactor = Double.parseDouble(termNode.factorNode.evaluate(args).toString());
+                factorValue = factorValue /secondTermFactor;
+                termvalue= Double.parseDouble(termNode.termNode.evaluate(args).toString());
             } else {
-                return factorValue / termvalue;
-
-
+                termvalue= Double.parseDouble(termNode.evaluate(args).toString());
             }
+            if(operator.token() == Token.MULT_OP){
+                return factorValue * termvalue;
+            } else
+                return factorValue / termvalue;
         }
 
     }

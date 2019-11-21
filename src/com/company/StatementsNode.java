@@ -24,21 +24,27 @@ public class StatementsNode implements INode {
 
         StringBuilder stringBuilder = new StringBuilder();
 
-        if (assignmentNode != null) {
+        if(assignmentNode != null) {
             ResultNode currentResult = (ResultNode) assignmentNode.evaluate(args);
+
             stringBuilder.append(currentResult.getId() + " = " + currentResult.getValue() + "\n");
 
-
-            for (int i = 0; i < args.length; i++) {
+            for(int i = 0; i < args.length; i++) {
                 if (args[i] == null) {
-                    args[i] = currentResult;
-                    break;
+                        args[i] = currentResult;
+                        break;
+
                 }
+
             }
+
             stringBuilder.append(statementNode.evaluate(args));
         }
+
+
         return stringBuilder;
     }
+
 
     @Override
     public void buildString(StringBuilder builder, int tabs) {

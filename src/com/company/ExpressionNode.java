@@ -29,12 +29,12 @@ public class ExpressionNode implements INode {
     @Override
     public Object evaluate(Object[] args) throws Exception {
 
-        double termValue = Double.parseDouble(termNode.evaluate(args).toString());
+        Double termValue = Double.parseDouble(termNode.evaluate(args).toString());
 
         if (expressionNode == null) {
             return termValue;
         } else {
-            double exprValue = Double.parseDouble(expressionNode.evaluate(args).toString());
+            Double exprValue = Double.parseDouble(expressionNode.evaluate(args).toString());
             if (operator.token() == Token.ADD_OP) {
                 return termValue + exprValue;
             } else {

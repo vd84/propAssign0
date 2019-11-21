@@ -39,16 +39,17 @@ public class FactorNode implements INode {
                 return var.value();
             } else if (var.token() == Token.IDENT) {
                 for (int i = 0; i < args.length; i++) {
-                    ResultNode resultNode = (ResultNode) args[i];
-                    if (resultNode.getId().equals(var.value().toString())) {
-                        return var.value();
+
+                    ResultNode v = (ResultNode) args[i];
+                    if (v.getId().equals(var.value().toString())) {
+                        return v.getValue();
                     }
                 }
             }
         }
-
-
         return expressionNode.evaluate(args);
+
+
     }
 
     @Override

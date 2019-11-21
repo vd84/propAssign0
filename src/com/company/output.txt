@@ -8,34 +8,25 @@ LEFT_CURLY {
 			ExpressionNode
 				TermNode
 					FactorNode
-						INT_LIT 1.0
-					MULT_OP *
-					TermNode
-						FactorNode
-							INT_LIT 2.0
-				ADD_OP +
+						INT_LIT 2.0
+				SUB_OP -
 				ExpressionNode
 					TermNode
 						FactorNode
-							LEFT_PAREN (
-							ExpressionNode
-								TermNode
-									FactorNode
-										INT_LIT 3.0
-								SUB_OP -
-								ExpressionNode
-									TermNode
-										FactorNode
-											INT_LIT 4.0
-							RIGHT_PAREN )
-						DIV_OP /
+							INT_LIT 1.0
+					ADD_OP +
+					ExpressionNode
 						TermNode
 							FactorNode
-								INT_LIT 5.0
+								INT_LIT 3.0
+							DIV_OP /
+							TermNode
+								FactorNode
+									INT_LIT 2.0
 			SEMICOLON ;
 		StatementsNode 
 			AssignmentNode 
-				IDENT a
+				IDENT b
 				ASSIGN_OP =
 				ExpressionNode
 					TermNode
@@ -83,4 +74,6 @@ LEFT_CURLY {
 RIGHT_CURLY }
 
 EVALUATION:
-a = 1.8
+a = -0.5
+b = 2.9
+c = 2.4
