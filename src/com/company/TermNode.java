@@ -32,7 +32,7 @@ public class TermNode implements INode {
             return factorValue;
         } else {
             Double termvalue;
-            if (operator.token() != null && operator.token() == Token.DIV_OP) {
+            if (termNode.operator != null && termNode.operator.token() == Token.DIV_OP) {
                 Double secondTermFactor = Double.parseDouble(termNode.factorNode.evaluate(args).toString());
                 factorValue = factorValue /secondTermFactor;
                 termvalue= Double.parseDouble(termNode.termNode.evaluate(args).toString());

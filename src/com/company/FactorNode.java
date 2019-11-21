@@ -5,7 +5,7 @@ import java.io.IOException;
 public class FactorNode implements INode {
 
     Lexeme var;
-    INode expressionNode;
+    ExpressionNode expressionNode;
     Lexeme leftParen;
 
     public FactorNode(Tokenizer tokenizer) throws IOException, TokenizerException, ParserException {
@@ -18,7 +18,7 @@ public class FactorNode implements INode {
             leftParen = tokenizer.getCurrent();
             System.out.println("FactorNode " + tokenizer.getCurrent().value().toString());
             tokenizer.moveNext();
-            expressionNode = new ExpressionNode(tokenizer);
+            expressionNode = new ExpressionNode(tokenizer, null);
             if (tokenizer.getCurrent().token() == Token.RIGHT_PAREN) {
                 var = tokenizer.getCurrent();
                 System.out.println("FactorNode " + tokenizer.getCurrent().value().toString());

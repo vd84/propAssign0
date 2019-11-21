@@ -5,12 +5,15 @@ import java.io.IOException;
 public class ExpressionNode implements INode {
 
     INode termNode = null;
-    Lexeme operator = null;
+    Lexeme operator, prevOperator = null;
     INode expressionNode = null;
 
-    public ExpressionNode(Tokenizer tokenizer) throws IOException, TokenizerException, ParserException {
+
+    public ExpressionNode(Tokenizer tokenizer, Lexeme prevOperator) throws IOException, TokenizerException, ParserException {
         System.out.println("ExpressionNode " + tokenizer.getCurrent().value().toString());
+        this.prevOperator = prevOperator;
         termNode = new TermNode(tokenizer);
+
 
 
         if (tokenizer.getCurrent().token() == Token.SUB_OP || tokenizer.getCurrent().token() == Token.ADD_OP) {
@@ -18,7 +21,7 @@ public class ExpressionNode implements INode {
             System.out.println("ExpressionNode " + tokenizer.getCurrent().value().toString());
 
             tokenizer.moveNext();
-            expressionNode = new ExpressionNode(tokenizer);
+            expressionNode = new ExpressionNode(tokenizer, operator);
         } else if (tokenizer.current().token() != Token.INT_LIT && tokenizer.current().token() != Token.IDENT && tokenizer.current().token() != Token.RIGHT_PAREN && tokenizer.current().token() != Token.SEMICOLON) {
             throw new ParserException("Wrong token, expected: SUB_OP OR ADD_OP, got: " + tokenizer.getCurrent().token().toString());
         }
@@ -35,14 +38,15 @@ public class ExpressionNode implements INode {
             return termValue;
         } else {
             Double exprValue = Double.parseDouble(expressionNode.evaluate(args).toString());
-            if (operator.token() == Token.ADD_OP) {
-                return termValue + exprValue;
-            } else {
-                return termValue - exprValue;
+            return termValue + exprValue;
+
+
+
+
 
 
             }
-        }
+
     }
 
     @Override
@@ -66,5 +70,37 @@ public class ExpressionNode implements INode {
         if(expressionNode != null){
             expressionNode.buildString(builder, tabs);
         }
+    }
+
+    public INode getTermNode() {
+        return termNode;
+    }
+
+    public void setTermNode(INode termNode) {
+        this.termNode = termNode;
+    }
+
+    public Lexeme getOperator() {
+        return operator;
+    }
+
+    public void setOperator(Lexeme operator) {
+        this.operator = operator;
+    }
+
+    public Lexeme getPrevOperator() {
+        return prevOperator;
+    }
+
+    public void setPrevOperator(Lexeme prevOperator) {
+        this.prevOperator = prevOperator;
+    }
+
+    public INode getExpressionNode() {
+        return expressionNode;
+    }
+
+    public void setExpressionNode(INode expressionNode) {
+        this.expressionNode = expressionNode;
     }
 }

@@ -19,7 +19,7 @@ public class AssignmentNode implements INode {
                 assign = tokenizer.getCurrent();
                 System.out.println("AssignmentNodeAssignment " + tokenizer.getCurrent().value().toString());
                 tokenizer.moveNext();
-                expressionNode = new ExpressionNode(tokenizer);
+                expressionNode = new ExpressionNode(tokenizer, null);
 
                 if(tokenizer.getCurrent().token() == Token.SEMICOLON){
                     semicolon = tokenizer.getCurrent();
