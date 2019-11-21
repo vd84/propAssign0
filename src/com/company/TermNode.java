@@ -1,11 +1,14 @@
 package com.company;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class TermNode implements INode {
-    INode factorNode = null;
-    Lexeme operator = null;
+    public FactorNode factorNode = null;
+    public Lexeme operator = null;
     private TermNode termNode = null;
+    Double divisionResult = 0.0;
+    Double prevDouble = 0.0;
 
     public TermNode(Tokenizer tokenizer) throws IOException, TokenizerException, ParserException {
         factorNode = new FactorNode(tokenizer);
@@ -27,23 +30,39 @@ public class TermNode implements INode {
     @Override
     public Object evaluate(Object[] args) throws Exception {
 
-        Double factorValue = Double.parseDouble(factorNode.evaluate(args).toString());
+        double factorNodeValue = Double.parseDouble(factorNode.evaluate(args).toString());
+
         if (termNode == null) {
-            return factorValue;
+            return factorNodeValue;
         } else {
-            Double termvalue;
-            if (termNode.operator != null && termNode.operator.token() == Token.DIV_OP) {
-                Double secondTermFactor = Double.parseDouble(termNode.factorNode.evaluate(args).toString());
-                factorValue = factorValue /secondTermFactor;
-                termvalue= Double.parseDouble(termNode.termNode.evaluate(args).toString());
+            if (operator.token() == Token.DIV_OP && prevDouble == 0.0) {
+                if (termNode.operator != null && termNode.operator.token() == Token.DIV_OP) {
+                    termNode.setPrevDouble(factorNodeValue);
+                    return termNode.evaluate(args);
+
+                } else {
+                    factorNodeValue = Double.parseDouble(factorNode.evaluate(args).toString());
+                }
+
+                //factorNodeValue = factorNodeValue / prevDouble;
+            } else if (termNode.operator != null && termNode.operator.token() == Token.DIV_OP) {
+                Double temp = prevDouble / factorNodeValue;
+                termNode.setPrevDouble(temp);
+                return termNode.evaluate(args);
             } else {
-                termvalue= Double.parseDouble(termNode.evaluate(args).toString());
+                double termNodeValue = Double.parseDouble(termNode.evaluate(args).toString());
+                return factorNodeValue * termNodeValue;
             }
-            if(operator.token() == Token.MULT_OP){
-                return factorValue * termvalue;
-            } else
-                return factorValue / termvalue;
+
         }
+        return factorNodeValue;
+
+    }
+
+    public double divide(double x1, double x2) {
+
+        return x1 / x2;
+
 
     }
 
@@ -69,5 +88,45 @@ public class TermNode implements INode {
         }
 
 
+    }
+
+    public FactorNode getFactorNode() {
+        return factorNode;
+    }
+
+    public Lexeme getOperator() {
+        return operator;
+    }
+
+    public TermNode getTermNode() {
+        return termNode;
+    }
+
+    public void setFactorNode(FactorNode factorNode) {
+        this.factorNode = factorNode;
+    }
+
+    public void setOperator(Lexeme operator) {
+        this.operator = operator;
+    }
+
+    public void setTermNode(TermNode termNode) {
+        this.termNode = termNode;
+    }
+
+    public Double getDivisionResult() {
+        return divisionResult;
+    }
+
+    public void setDivisionResult(Double divisionResult) {
+        this.divisionResult = divisionResult;
+    }
+
+    public Double getPrevDouble() {
+        return prevDouble;
+    }
+
+    public void setPrevDouble(Double prevDouble) {
+        this.prevDouble = prevDouble;
     }
 }
