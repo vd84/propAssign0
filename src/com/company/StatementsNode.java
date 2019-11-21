@@ -27,7 +27,7 @@ public class StatementsNode implements INode {
         if(assignmentNode != null) {
             ResultNode currentResult = (ResultNode) assignmentNode.evaluate(args);
 
-            stringBuilder.append(currentResult.getId() + " = " + currentResult.getValue() + "\n");
+            stringBuilder.append(currentResult.getId() + " = " + String.format("%.01f\n", currentResult.getValue()));
 
             for(int i = 0; i < args.length; i++) {
                 if (args[i] == null) {
