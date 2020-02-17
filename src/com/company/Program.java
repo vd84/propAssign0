@@ -17,9 +17,9 @@ public class Program {
             try {
                 if (args.length < 0)
                     throw new Exception("Incorrect number of parameters to program.");
-                inputFileName = "C:\\Users\\dogge\\IdeaProjects\\propAssign0\\src\\com\\company\\program2.txt";
+                inputFileName = "C:\\Users\\Douglas\\Dropbox\\propAssign0 (Konflikt vid selektiv synkning 1)\\src\\com\\company\\program1.txt";
                 //outputFileName = args[1];
-                outputFileName = "C:\\Users\\dogge\\IdeaProjects\\propAssign0\\src\\com\\company\\output.txt";
+                outputFileName = "C:\\Users\\Douglas\\Dropbox\\propAssign0 (Konflikt vid selektiv synkning 1)\\src\\com\\company\\output.txt";
 
                 parser = new Parser();
                 parser.open(inputFileName);

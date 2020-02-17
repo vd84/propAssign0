@@ -8,7 +8,6 @@ public class StatementsNode implements INode {
     public StatementsNode(Tokenizer t) throws Exception {
 
         if (t.getCurrent().token() == Token.IDENT) {
-            System.out.println("statementsNode " + t.getCurrent().value().toString());
             assignmentNode = new AssignmentNode(t);
             statementNode = new StatementsNode(t);
 
@@ -22,22 +21,26 @@ public class StatementsNode implements INode {
     @Override
     public Object evaluate(Object[] args) throws Exception {
 
-        StringBuilder stringBuilder = new StringBuilder();
 
-        if(assignmentNode != null) {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (assignmentNode != null) {
+
             ResultNode currentResult = (ResultNode) assignmentNode.evaluate(args);
 
             stringBuilder.append(currentResult.getId() + " = " + String.format("%.01f\n", currentResult.getValue()));
 
-            for(int i = 0; i < args.length; i++) {
-                if (args[i] == null) {
+            for (int i = 0; i < args.length; i++) {
+                if (args[i] != null) {
+                    ResultNode curRes = (ResultNode) args[i];
+                    if (curRes.getId().equals(currentResult.getId())) {
                         args[i] = currentResult;
                         break;
-
+                    }
+                } else {
+                    args[i] = currentResult;
+                    break;
                 }
-
             }
-
             stringBuilder.append(statementNode.evaluate(args));
         }
 

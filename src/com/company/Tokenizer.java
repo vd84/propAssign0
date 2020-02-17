@@ -25,10 +25,6 @@ public class Tokenizer implements ITokenizer {
 
     private Lexeme extractLexeme() throws IOException, TokenizerException {
         consumeWhiteSpaces();
-        //char current = scanner.current();
-        //scanner.moveNext();
-        //this.moveNext();
-
         Lexeme lexeme;
 
 

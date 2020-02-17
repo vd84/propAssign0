@@ -17,6 +17,9 @@ public class Lexeme {
 	public Token token() {
 		return token;
 	}
+
+
+
 	
 	@Override
 	public java.lang.String toString() {

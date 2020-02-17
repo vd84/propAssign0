@@ -16,7 +16,6 @@ public class BlockNode implements INode {
         }
         if (tokenizer.getCurrent().token() == Token.RIGHT_CURLY) {
             rightCurly = tokenizer.current();
-            System.out.println("EndBLock" + tokenizer.getCurrent().value().toString());
             tokenizer.moveNext();
         } else
             throw new ParserException("Wrong Token " + tokenizer.getCurrent().token().toString());
@@ -29,11 +28,7 @@ public class BlockNode implements INode {
         if(statementsNode != null) {
             return statementsNode.evaluate(resultArray);
         }
-
-
         return null;
-
-
     }
 
     @Override

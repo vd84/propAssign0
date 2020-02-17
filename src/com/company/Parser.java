@@ -8,10 +8,6 @@ public class Parser implements IParser {
 
     @Override
     public void open(String fileName) throws IOException, TokenizerException {
-/*        tokenizer = new Tokenizer();
-        tokenizer.open(fileName);
-        tokenizer.setCurrent(tokenizer.getNext());
-        tokenizer.moveNext();*/
         tokenizer = new Tokenizer();
         tokenizer.open(fileName);
         tokenizer.moveNext();

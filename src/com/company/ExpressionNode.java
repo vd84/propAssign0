@@ -11,15 +11,13 @@ public class ExpressionNode implements INode {
     INode expressionNode = null;
 
 
-    public ExpressionNode(Tokenizer tokenizer, Lexeme prevOperator) throws IOException, TokenizerException, ParserException {
-        System.out.println("ExpressionNode " + tokenizer.getCurrent().value().toString());
+    public ExpressionNode(Tokenizer tokenizer, Lexeme prevOperator) throws Exception {
         this.prevOperator = prevOperator;
         termNode = new TermNode(tokenizer);
 
 
         if (tokenizer.getCurrent().token() == Token.SUB_OP || tokenizer.getCurrent().token() == Token.ADD_OP) {
             operator = tokenizer.getCurrent();
-            System.out.println("ExpressionNode " + tokenizer.getCurrent().value().toString());
 
             tokenizer.moveNext();
             expressionNode = new ExpressionNode(tokenizer, operator);
@@ -31,6 +29,7 @@ public class ExpressionNode implements INode {
 
     @Override
     public Object evaluate(Object[] args) throws Exception {
+
         double termNodeValue = Double.parseDouble(termNode.evaluate(args).toString());
 
         if (expressionNode == null) {

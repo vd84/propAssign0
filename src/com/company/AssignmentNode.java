@@ -17,14 +17,12 @@ public class AssignmentNode implements INode {
 
             if(tokenizer.getCurrent().token() == Token.ASSIGN_OP){
                 assign = tokenizer.getCurrent();
-                System.out.println("AssignmentNodeAssignment " + tokenizer.getCurrent().value().toString());
                 tokenizer.moveNext();
                 expressionNode = new ExpressionNode(tokenizer, null);
 
                 if(tokenizer.getCurrent().token() == Token.SEMICOLON){
                     semicolon = tokenizer.getCurrent();
 
-                    System.out.println("AssignmentNodeSemicolon " + tokenizer.getCurrent().value().toString());
                     tokenizer.moveNext();
                 } else
                     throw new IOException("Wrong token, expected: SEMICOLON, got: " + tokenizer.getCurrent().token().toString());
